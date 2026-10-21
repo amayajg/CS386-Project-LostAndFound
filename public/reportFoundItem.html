@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!--setup for the page-->
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!--name on the browser tab-->
+		<title>Report Found Item</title>
+	</head>
+
+	<body>
+		<!--Page for students to report an item they found-->
+		<main>
+			<h1>Report Found Item</h1>
+
+			<!--explanation of form-->
+			<p>Use this form to report an item you found on campus.</p>
+
+			<!--the form for info about found item-->
+			<form id="foundItemForm">
+				<!-- Item name -->
+				<label for="name">Item Name:</label>
+				<br />
+				<input
+					type="text"
+					id="name"
+					name="name"
+					placeholder="e.g. Black Wallet"
+					required />
+
+				<br /><br />
+
+				<!-- Category from mockData.json -->
+				<label for="categoryId">Category:</label>
+				<br />
+				<select id="categoryId" name="categoryId" required>
+					<option value="">Select category</option>
+				</select>
+
+				<br /><br />
+
+				<!-- Color -->
+				<label for="color">Color:</label>
+				<br />
+				<input type="text" id="color" name="color" placeholder="e.g. Black" />
+
+				<br /><br />
+
+				<!-- Brand (optional) -->
+				<label for="brand">Brand (optional):</label>
+				<br />
+				<input
+					type="text"
+					id="brand"
+					name="brand"
+					placeholder="e.g. Apple, Bose, YETI" />
+
+				<br /><br />
+
+				<!-- Description -->
+				<label for="description">Item Description:</label>
+				<br />
+				<textarea
+					id="description"
+					name="description"
+					placeholder="Describe the item you found..."
+					required></textarea>
+
+				<br /><br />
+
+				<!-- Location from mockData.json -->
+				<label for="locationId">Where did you find it?</label>
+				<br />
+				<select id="locationId" name="locationId" required>
+					<option value="">Select location</option>
+				</select>
+
+				<br /><br />
+
+				<!-- Date -->
+				<label for="date">When did you find it?</label>
+				<br />
+				<input type="date" id="date" name="date" required />
+
+				<br /><br />
+				<!-- submitButton will be disabled by default-->
+				<button type="submit" id="submitButton" disabled>
+					Submit Found Item
+				</button>
+			</form>
+
+			<!-- JavaScript displays the submission result here : id="confirmation" -->
+			<!-- role="status" lets screen readers announce the updated message -->
+			<p id="confirmation" role="status"></p>
+		</main>
+
+		<!--javaScript for found item-->
+		<script src="reportFoundItem.js"></script>
+	</body>
+</html>

@@ -1,0 +1,86 @@
+//wait for loading page
+document.addEventListener('DOMContentLoaded', async () => {
+	//found item form HTML page
+	const form = document.getElementById('foundItemForm');
+	//confirmation message
+	const confirmation = document.getElementById('confirmation');
+	//category select from dropdown
+	const categorySelect = document.getElementById('categoryId');
+	//location select from dropdown
+	const locationSelect = document.getElementById('locationId');
+	// submit button
+	const submitButton = document.getElementById('submitButton');
+
+	// load categories and locations from mock data
+	try {
+		const res = await fetch('/data/mockData.json');
+		if (!res.ok) {
+			throw new Error('failed to load mockData');
+		}
+		// if succeed to load(res.ok)
+		const data = await res.json();
+		// build categories dropdown
+		data.categories.forEach((category) => {
+			const option = document.createElement('option');
+			option.value = category.id;
+			option.textContent = category.name;
+			categorySelect.appendChild(option);
+		});
+		// build location dropdown
+		data.locations.forEach((location) => {
+			const option = document.createElement('option');
+			option.value = location.id;
+			option.textContent = location.name;
+			locationSelect.appendChild(option);
+		});
+		// submitButton changes status
+		submitButton.disabled = false;
+	} catch (error) {
+		confirmation.textContent =
+			'Failed to load categories and locations option.';
+		console.error(error);
+		return;
+	}
+
+	//wait for user to submit form
+	form.addEventListener('submit', (event) => {
+		//stop page from refreshing when form is submitted
+		event.preventDefault();
+		// Read the form values
+		const formData = new FormData(form);
+		// Create an item using our shared JSON structure
+		const foundItem = {
+			type: 'found',
+			name: formData.get('name')?.trim(),
+			categoryId: formData.get('categoryId'),
+			color: formData.get('color')?.trim(),
+			brand: formData.get('brand')?.trim() || null,
+			description: formData.get('description')?.trim(),
+			date: formData.get('date'),
+			locationId: formData.get('locationId'),
+			status: 'unclaimed',
+			reportedBy: null,
+		};
+
+		// Check must required fields
+		if (
+			!foundItem.name ||
+			!foundItem.categoryId ||
+			!foundItem.description ||
+			!foundItem.date ||
+			!foundItem.locationId
+		) {
+			confirmation.textContent = 'Please fill out all required fields.';
+			return;
+		}
+
+		// TODO: Replace this preview with a POST request when the API is ready.
+		// The API should accept the foundItem JSON and save it to the database.
+		console.log('Found item JSON:', foundItem);
+
+		// TODO: Show this message only after the API confirms successful storage.
+		// confirmation.textContent = "Found item report submitted!";
+
+		confirmation.textContent = 'Found item data prepared (not saved yet).';
+	});
+});
