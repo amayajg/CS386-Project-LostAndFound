@@ -4,14 +4,16 @@
 		<!--setup for the page-->
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+		<link rel="stylesheet" href="/css/style.css" />
 		<!--name on the browser tab-->
 		<title>Report Found Item</title>
 	</head>
 
 	<body>
+		<!--Nav bar applied -->
+		<div id="navbar"></div>
 		<!--Page for students to report an item they found-->
-		<main>
+		<main class="container found-item-page">
 			<h1>Report Found Item</h1>
 
 			<!--explanation of form-->
@@ -95,6 +97,8 @@
 			<p id="confirmation" role="status"></p>
 		</main>
 
+		<!--javaScript for nav bar-->
+		<script src="/navbar.js"></script>
 		<!--javaScript for found item-->
 		<script src="reportFoundItem.js"></script>
 	</body>
