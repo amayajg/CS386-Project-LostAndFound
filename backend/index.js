@@ -2,11 +2,11 @@
 // in the future, this can be moved to a file (e.g config.json)
 // or environment variables (e.g using dotenv)
 const PORT = 8080;
-const HOSTNAME = "127.0.0.1";
-
+const HOSTNAME = '127.0.0.1';
 
 // pull in dependencies
 const express = require('express');
+
 const { runMigrations } = require('./db');
 
 // initialize database
@@ -14,6 +14,9 @@ runMigrations();
 
 // create app
 const app = express();
+
+// now express can read json as req.body
+app.use(express.json());
 
 // basic logging middleware
 app.use((req, _, next) => {
@@ -23,28 +26,29 @@ app.use((req, _, next) => {
 });
 
 // placeholder API route until we have more blocked out
-app.get("/api/v1/health", async (req, res) => {
+app.get('/api/v1/health', async (req, res) => {
 	return res.status(200).json({
-		code: "healthy",
-		message: "The server is currently healthy."
-	})
+		code: 'healthy',
+		message: 'The server is currently healthy.',
+	});
 });
-
 
 // not real API endpoints, but add full stack demo for reference purposes
 app.use('/api/v1/full-stack-demo/', require('./full-stack-demo/index'));
 
+// Item API routes
+app.use('/api/v1/items', require('./items'));
 
 // serve static files from /public/ as backup
-app.use("/", express.static("../public/"));
-
+app.use('/', express.static('../public/'));
 
 // listen on configured port
-app.listen(PORT, HOSTNAME, (err) => {
-	if (err) {
-		console.error("[Express] " + err);
-		return;
-	}
+// Start server only when running index.js directly
+if (require.main === module) {
+	app.listen(PORT, HOSTNAME, () => {
+		console.log(`Server running at http://${HOSTNAME}:${PORT}`);
+	});
+}
 
-	console.log(`[Express] The server is live at http://${HOSTNAME}:${PORT}.`);
-});
+// Export app for automated testing
+module.exports = app;

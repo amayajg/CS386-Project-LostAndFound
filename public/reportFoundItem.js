@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 	}
 
 	//wait for user to submit form
-	form.addEventListener('submit', (event) => {
+	form.addEventListener('submit', async (event) => {
 		//stop page from refreshing when form is submitted
 		event.preventDefault();
 		// Read the form values
@@ -74,13 +74,30 @@ document.addEventListener('DOMContentLoaded', async () => {
 			return;
 		}
 
-		// TODO: Replace this preview with a POST request when the API is ready.
-		// The API should accept the foundItem JSON and save it to the database.
-		console.log('Found item JSON:', foundItem);
+		// Send the found item to the backend api
+		submitButton.disabled = true;
+		confirmation.textContent = 'Submitting found item...';
 
-		// TODO: Show this message only after the API confirms successful storage.
-		// confirmation.textContent = "Found item report submitted!";
-
-		confirmation.textContent = 'Found item data prepared (not saved yet).';
+		try {
+			const res = await fetch('/api/v1/items', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(foundItem),
+			});
+			if (!res.ok) {
+				const details = await res.text();
+				throw new Error(`HTTP ${res.status}: ${details}`);
+			}
+			const savedItem = await res.json();
+			// display success only after the api confirms saving
+			confirmation.textContent = `Found item report successfully submitted as Item ID: ${savedItem.id}`;
+			form.reset();
+		} catch (error) {
+			console.error('Failed to submit found item:', error);
+			confirmation.textContent =
+				'Failed to submit the report. Please try again.';
+		} finally {
+			submitButton.disabled = false;
+		}
 	});
 });
