@@ -17,8 +17,6 @@ const app = express();
 
 // now express can read json as req.body
 app.use(express.json());
-// assign url with items.js
-app.use('/api/v1/items', require('./items'));
 
 // basic logging middleware
 app.use((req, _, next) => {
