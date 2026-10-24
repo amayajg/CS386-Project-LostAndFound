@@ -51,7 +51,7 @@ Your project should now be set up.
 ## Running the project
 You will need to do this whenever you want to test the project.
 Simply navigate to your project's `/backend/` directory again,
-and run `node .`. The backend should print something like this:
+and run `node .` or `npm start`. The backend should print something like this:
 
 ```
 [Express] The server is live at http://127.0.0.1:8080.
@@ -64,3 +64,8 @@ the sqlite database on disk).
 When you're done testing the website, you can go back to the terminal
 in which you ran `node .`, and press Ctrl+C to interrupt the process.
 The local server will shut down.
+
+## Seeding mock data
+The seed.js file exists so we can fill the db with mock data, which currently pulls from the public/data/mockData.json file. 
+
+All you have to do is run `npm run seed` (from the `/backend/` directory) before starting the server. If you ever need to start over, just delete lost-and-found.db and seed again.
