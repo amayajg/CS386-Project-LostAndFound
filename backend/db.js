@@ -1,7 +1,8 @@
 const { DatabaseSync } = require('node:sqlite');
 const migrations = require('./migrations');
 
-const db = new DatabaseSync("lost-and-found.db");
+// tests set DB_PATH to ':memory:' so they never touch the real database file
+const db = new DatabaseSync(process.env.DB_PATH || "lost-and-found.db");
 
 module.exports = {
 	runMigrations: function () {

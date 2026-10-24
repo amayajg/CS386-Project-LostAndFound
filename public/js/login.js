@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		// Backend decides account type, then redirect to home page/management page
 
-		message.textContent = 'Login not currently functional.';
+		// No real authentication for now, login just redirects to home page directly
+		window.location.href = '/home.html';
 	});
 });

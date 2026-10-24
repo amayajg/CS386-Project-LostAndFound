@@ -11,14 +11,20 @@ document.addEventListener('DOMContentLoaded', async () => {
 	// submit button
 	const submitButton = document.getElementById('submitButton');
 
-	// load categories and locations from mock data
+	// load categories and locations from the database through the API
 	try {
-		const res = await fetch('/data/mockData.json');
-		if (!res.ok) {
-			throw new Error('failed to load mockData');
+		const [categoriesRes, locationsRes] = await Promise.all([
+			fetch('/api/v1/categories'),
+			fetch('/api/v1/locations'),
+		]);
+		if (!categoriesRes.ok || !locationsRes.ok) {
+			throw new Error('failed to load categories and locations');
 		}
-		// if succeed to load(res.ok)
-		const data = await res.json();
+		// same shape the old mockData.json gave us
+		const data = {
+			categories: await categoriesRes.json(),
+			locations: await locationsRes.json(),
+		};
 		// build categories dropdown
 		data.categories.forEach((category) => {
 			const option = document.createElement('option');
@@ -53,7 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			type: 'found',
 			name: formData.get('name')?.trim(),
 			categoryId: formData.get('categoryId'),
-			color: formData.get('color')?.trim(),
+			color: formData.get('color')?.trim() || null,
 			brand: formData.get('brand')?.trim() || null,
 			description: formData.get('description')?.trim(),
 			date: formData.get('date'),

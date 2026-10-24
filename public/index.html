@@ -3,33 +3,49 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>NAU Lost & Found</title>
+		<title>Login | NAU Lost & Found</title>
+
 		<!-- CSS -->
-		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="/css/style.css" />
 	</head>
 	<body>
-		<!-- Shared Navbar for Site Wide -->
-		<div id="navbar"></div>
-		<main class="container">
-			<h1>Lost Item List</h1>
+		<!-- Decided not to include navbar, as it doesnt fit on the login page -->
 
-			<!-- Input form to send items to server/database-->
-			<form id="itemForm">
-				<input
-					type="text"
-					id="itemInput"
-					placeholder="Enter item name..."
-					required />
-				<button type="submit">Submit</button>
+		<main class="login-container">
+			<h1>Log in</h1>
+			<p class="login-subtitle">
+				Sign in to report, claim, or manage your lost items.
+			</p>
+
+			<form id="loginForm" class="login-form">
+				<label for="userID">
+					User ID
+					<input
+						id="userID"
+						name="userID"
+						required />
+				</label>
+
+				<label for="password">
+					Password
+					<input
+						type="password"
+						id="password"
+						name="password"
+						required />
+				</label>
+
+				<button type="submit">Log in</button>
+
+				<!-- Error messages show here -->
+				<p id="loginMessage" class="login-message" role="status"></p>
 			</form>
 
-			<!-- Fetch items from server > list here-->
-			<ul id="itemList"></ul>
+			<!-- Functionality not needed for MVP -->
+			<p class="login-footer"><a href="#">Forgot your password?</a></p>
 		</main>
 
-		<!-- Shared Navbar JS -->
-		<script src="/navbar.js"></script>
-		<!-- script JS -->
-		<script src="script.js"></script>
+		<!-- Login JS -->
+		<script src="/js/login.js"></script>
 	</body>
 </html>

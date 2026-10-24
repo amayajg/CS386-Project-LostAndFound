@@ -1,11 +1,11 @@
 const { test, mock } = require('node:test');
 const assert = require('node:assert/strict');
 const express = require('express');
-const { db } = require('./db');
+const { db } = require('../db');
 
 const app = express();
 app.use(express.json());
-app.use('/api/v1/items', require('./items'));
+app.use('/api/v1/items', require('../items'));
 
 /*-- Testing cases
     GET Items
@@ -17,7 +17,7 @@ app.use('/api/v1/items', require('./items'));
 test('GET items', async () => {
 	// arrange
 	const fake = mock.method(db, 'prepare', () => ({
-		all: () => [{ Id: 1, Name: 'Wallet' }],
+		all: () => [{ id: 1, name: 'Wallet' }],
 	}));
 	const server = app.listen(0);
 
@@ -29,7 +29,7 @@ test('GET items', async () => {
 
 		// assert
 		assert.equal(res.status, 200);
-		assert.equal(items[0].Name, 'Wallet');
+		assert.equal(items[0].name, 'Wallet');
 	} finally {
 		fake.mock.restore();
 		await new Promise((resolve) => server.close(resolve));
@@ -40,6 +40,7 @@ test('GET items', async () => {
 test('POST valid item', async () => {
 	// arrange
 	const fake = mock.method(db, 'prepare', () => ({
+		get: () => ({}), // category/location lookups find a row
 		run: () => ({ lastInsertRowid: 1 }),
 	}));
 	const server = app.listen(0);
@@ -91,6 +92,3 @@ test('POST invalid item', async () => {
 		await new Promise((resolve) => server.close(resolve));
 	}
 });
-
-// test this with this command
-// node --test items.test.js

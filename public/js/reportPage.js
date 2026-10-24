@@ -1,7 +1,7 @@
-eventListener ('DOMContentLoaded', () =>
-{
+document.addEventListener('DOMContentLoaded', async () => {
     const lostItemForm = document.getElementById('lostItemForm');
     const duplicateItemMessage = document.getElementById('duplicateItemMessage');
+    const submitButton = document.getElementById('submitButton');
 
     lostItemForm.addEventListener('submit', async (e) => {
         e.preventDefault();
