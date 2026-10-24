@@ -3,19 +3,27 @@
 		<img src="/assets/nau-logo.png" alt="NAU" class="navbar-logo" />
 		<span>Lost & Found</span>
 	</a>
-	<form class="navbar-search" id="globalSearch">
+	<!-- Search will be handled on the Find Items page  -->
+	<!-- <form class="navbar-search" id="globalSearch">
 		<input
 			type="search"
 			placeholder="Search lost & found items..."
 			aria-label="Search lost and found items" />
 		<button type="submit">Search</button>
-	</form>
+	</form> -->
 
+
+	<!-- Navigation for D4 prototype -->
 	<div class="navbar-links">
-		<a href="/home.html" data-view="home">Home</a>
-		<a href="/reportPage.html" data-view="report-lost">Report Lost</a>
-		<a href="/reportFoundItem.html" data-view="log-found">Log Found</a>
-		<a href="/staffManagementPage.html" data-view="claim">Staff Management</a>
-		<a href="/" data-view="login">Log Out</a>
+		<a href="/home.html">Find Items</a>
+		<a href="/reportPage.html">Report Lost Item</a>
+		<a href="/reportFoundItem.html">Report Found Item</a>
+		<a href="/staffManagementPage.html">Staff Management</a>
+	</div>
+
+	<!-- Login status (Guest until authentication is connected) -->
+	<div class="navbar-account">
+		<span class="navbar-status">Guest</span>
+		<a href="/" class="navbar-login">Log In</a>
 	</div>
 </nav>
