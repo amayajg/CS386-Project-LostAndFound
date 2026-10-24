@@ -11,19 +11,23 @@
 		<!-- Shared Navbar for Site Wide -->
 		<div id="navbar"></div>
 		<main class="container">
-			<h1>Lost Item List</h1>
+			<h1>Find Items</h1>
+			<p>Search the items that have been turned in on campus.</p>
 
-			<!-- Input form to send items to server/database-->
-			<form id="itemForm">
+			<!-- Search form: sends GET request -->
+			<form id="searchForm">
 				<input
-					type="text"
+					type="search"
 					id="itemInput"
-					placeholder="Enter item name..."
-					required />
-				<button type="submit">Submit</button>
+					placeholder="Search found item"
+					aria-label="Search found items" />
+				<button type="submit">Search</button>
 			</form>
 
-			<!-- Fetch items from server > list here-->
+			<!-- How many items matched (or an error message) -->
+			<p id="resultCount" role="status"></p>
+
+			<!-- Found items from the server are listed here -->
 			<ul id="itemList"></ul>
 		</main>
 
