@@ -8,8 +8,8 @@ process.env.DB_PATH = ':memory:';
 
 const { test, before, after, beforeEach } = require('node:test');
 const assert = require('node:assert/strict');
-const app = require('./index'); // loading index.js also runs the migrations
-const { db } = require('./db');
+const app = require('../index'); // loading index.js also runs the migrations
+const { db } = require('../db');
 
 let server;
 let url;

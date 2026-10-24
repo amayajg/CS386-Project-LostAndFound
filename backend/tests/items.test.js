@@ -1,11 +1,11 @@
 const { test, mock } = require('node:test');
 const assert = require('node:assert/strict');
 const express = require('express');
-const { db } = require('./db');
+const { db } = require('../db');
 
 const app = express();
 app.use(express.json());
-app.use('/api/v1/items', require('./items'));
+app.use('/api/v1/items', require('../items'));
 
 /*-- Testing cases
     GET Items
@@ -92,6 +92,3 @@ test('POST invalid item', async () => {
 		await new Promise((resolve) => server.close(resolve));
 	}
 });
-
-// test this with this command
-// node --test items.test.js
