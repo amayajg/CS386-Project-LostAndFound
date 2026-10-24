@@ -9,7 +9,7 @@
 }
 
 /* =========================
-        BASE
+        GLOBAL BASE
    ========================= */
 
 body {
@@ -20,46 +20,108 @@ body {
 }
 
 .container {
-	background: var(--secondary-bg);
-	padding: 30px;
-	border-radius: 8px;
+	box-sizing: border-box;
+	width: min(100% - 32px, 900px);
+	margin: 40px auto;
+	padding: 32px;
+	background: var(--surface);
+}
 
-	max-width: 900px;
-	margin: 50px auto;
+@media (max-width: 600px) {
+	.container {
+		margin: 20px auto;
+		padding: 20px;
+	}
 }
 
 /* =========================
-        GLOBAL BUTTONS
+    GLOBAL FORM CONTROLS
 ========================= */
 
+button,
+input,
+select,
+textarea {
+	font: inherit;
+	font-size: 16px;
+	box-sizing: border-box;
+}
+
+/* Inputs */
+input,
+select,
+textarea {
+	padding: 10px 12px;
+	color: var(--text);
+	background: var(--surface);
+	border: 1px solid var(--border);
+	border-radius: 6px;
+}
+
+input::placeholder,
+textarea::placeholder {
+	color: var(--muted);
+}
+
+/* Focus */
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+	outline: 2px solid var(--nau-gold);
+	outline-offset: 1px;
+	border-color: var(--nau-blue);
+}
+
+/* Disabled inputs */
+input:disabled,
+select:disabled,
+textarea:disabled {
+	background: var(--bg);
+	color: var(--muted);
+	cursor: not-allowed;
+}
+
+/* Buttons */
 button {
 	padding: 10px 18px;
 	background: var(--nau-blue);
 	color: white;
-	border: 2px solid var(--nau-blue);
-	font-size: 16px;
-	font-weight: bold;
+	border: 1px solid var(--nau-blue);
+	border-radius: 6px;
+	font-weight: 600;
 	cursor: pointer;
+	transition:
+		background-color 0.15s,
+		color 0.15s;
 }
 
-button:hover {
-	color: var(--nau-gold);
+/* Hover */
+button:hover:not(:disabled) {
+	background: #004780;
+	border-color: #004780;
 }
 
-/* =========================
-        GLOBAL INPUTS
-========================= */
-input {
-	flex: 1;
-	padding: 10px 12px;
-	border: 1px solid #b8c2cc;
-	font-size: 16px;
+/* Pressed */
+button:active:not(:disabled) {
+	background: #00264d;
+	border-color: #00264d;
 }
 
-input:focus,
-select:focus {
-	outline: none;
-	border-color: #f4c430;
+/* Keyboard focus */
+button:focus-visible {
+	outline: 3px solid var(--nau-gold);
+	outline-offset: 2px;
+}
+
+/* Disabled buttons */
+button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* Labels */
+label {
+	color: var(--text);
 }
 
 /* =========================
@@ -109,6 +171,77 @@ select:focus {
 	white-space: nowrap;
 }
 
+.navbar-links a {
+	padding: 8px 4px;
+	border-bottom: 2px solid transparent;
+	transition:
+		color 0.15s,
+		border-color 0.15s;
+}
+
+.navbar-links a:hover {
+	color: var(--nau-blue);
+	border-bottom-color: var(--nau-gold);
+}
+
+.navbar-links a:focus-visible {
+	outline: 2px solid var(--nau-gold);
+	outline-offset: 3px;
+}
+
+/* =========================
+   NAVBAR ACCOUNT
+========================= */
+
+.navbar-account {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-left: 16px;
+}
+
+.navbar-status {
+	font-size: 13px;
+	color: var(--muted);
+	background: var(--bg);
+	border: 1px solid var(--border);
+	padding: 5px 10px;
+	border-radius: 20px;
+}
+
+.navbar-login {
+	text-decoration: none;
+	color: var(--nau-blue);
+	font-weight: 500;
+	padding: 6px 12px;
+	border: 1px solid var(--nau-blue);
+}
+
+.navbar-login:hover {
+	background: var(--nau-blue);
+	color: white;
+}
+
+.navbar-login:focus-visible {
+	outline: 2px solid var(--nau-gold);
+	outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+	.navbar {
+		flex-wrap: wrap;
+		gap: 12px;
+	}
+
+	.navbar-links {
+		margin-left: 0;
+	}
+
+	.navbar-account {
+		margin-left: auto;
+	}
+}
+
 /* =========================
 	STAFF MANAGEMENT PAGE
 ========================= */
@@ -116,9 +249,9 @@ select:focus {
 .staff-container {
 	display: grid;
 	grid-template-areas:
-		"dashboard"
-		"filter"
-		"items";
+		'dashboard'
+		'filter'
+		'items';
 	grid-template-rows: auto auto auto;
 	gap: 3px;
 	padding: 5px;
@@ -135,7 +268,7 @@ select:focus {
 	gap: 25px;
 }
 
-.staff-filter select{
+.staff-filter select {
 	padding: 8px 14px;
 	border: 1px solid #b8c2cc;
 	font-size: 16px;
@@ -204,7 +337,7 @@ select:focus {
 	font-weight: normal;
 }
 
-.login-form button[type="submit"] {
+.login-form button[type='submit'] {
 	width: 100%;
 }
 
@@ -222,4 +355,70 @@ select:focus {
 
 .login-footer a {
 	color: var(--nau-blue);
+}
+
+/* =========================
+    REPORT FOUND ITEM PAGE
+========================= */
+
+.found-item-page input,
+.found-item-page select,
+.found-item-page textarea {
+	width: 100%;
+}
+
+.found-item-page button {
+	width: 100%;
+}
+
+/* =========================
+   REPORT FOUND ITEM PAGE
+========================= */
+
+.found-item-page {
+	box-sizing: border-box;
+	width: min(100% - 32px, 640px);
+	margin: 40px auto;
+	padding: 32px;
+	background: var(--surface);
+	border: 1px solid var(--border);
+}
+
+.found-item-page h1 {
+	margin: 0 0 12px;
+	color: var(--nau-blue);
+}
+
+.found-item-page > p {
+	color: var(--muted);
+	line-height: 1.5;
+}
+
+#foundItemForm {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+#foundItemForm br {
+	display: none;
+}
+
+#foundItemForm label {
+	margin-top: 12px;
+	font-weight: 600;
+}
+
+#foundItemForm input,
+#foundItemForm select,
+#foundItemForm textarea {
+	width: 100%;
+}
+
+#foundItemForm textarea {
+	min-height: 100px;
+}
+
+#foundItemForm button {
+	margin-top: 20px;
 }
