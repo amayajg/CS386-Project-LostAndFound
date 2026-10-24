@@ -40,6 +40,7 @@ test('GET items', async () => {
 test('POST valid item', async () => {
 	// arrange
 	const fake = mock.method(db, 'prepare', () => ({
+		get: () => ({}), // category/location lookups find a row
 		run: () => ({ lastInsertRowid: 1 }),
 	}));
 	const server = app.listen(0);

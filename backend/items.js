@@ -89,6 +89,16 @@ router.post('/', (req, res) => {
 	}
 
 	try {
+		// categoryId and locationId must exist in their tables,
+		// so every item can be matched and shown with readable names
+		const category = db.prepare('SELECT 1 FROM Category WHERE Id = ?').get(String(categoryId));
+		const location = db.prepare('SELECT 1 FROM Location WHERE Id = ?').get(String(locationId));
+		if (!category || !location) {
+			return res.status(400).json({
+				error: 'Unknown category or location',
+			});
+		}
+
 		// declare and define SQL for safe insertion to SQLite
 		const command = db.prepare(`
         INSERT INTO Item (
