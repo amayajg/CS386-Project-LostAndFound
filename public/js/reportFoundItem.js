@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 			type: 'found',
 			name: formData.get('name')?.trim(),
 			categoryId: formData.get('categoryId'),
-			color: formData.get('color')?.trim(),
+			color: formData.get('color')?.trim() || null,
 			brand: formData.get('brand')?.trim() || null,
 			description: formData.get('description')?.trim(),
 			date: formData.get('date'),

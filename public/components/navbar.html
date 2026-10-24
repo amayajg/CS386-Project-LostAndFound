@@ -1,22 +1,21 @@
 <nav class="navbar">
-	<a class="navbar-brand" href="/">
+	<a class="navbar-brand" href="/home.html">
 		<img src="/assets/nau-logo.png" alt="NAU" class="navbar-logo" />
 		<span>Lost & Found</span>
 	</a>
 	<form class="navbar-search" id="globalSearch">
 		<input
 			type="search"
-			placeholder="Search lost items..."
-			aria-label="Search lost items" />
+			placeholder="Search lost & found items..."
+			aria-label="Search lost and found items" />
 		<button type="submit">Search</button>
 	</form>
 
-	<!-- navbar links will be connected later -->
 	<div class="navbar-links">
-		<a href="#" data-view="home">Home</a>
-		<a href="#" data-view="report-lost">Report Lost</a>
-		<a href="#" data-view="log-found">Log Found</a>
-		<a href="#" data-view="claim">Claim</a>
-		<a href="/loginPage.html" data-view="login">Login</a>
+		<a href="/home.html" data-view="home">Home</a>
+		<a href="/reportPage.html" data-view="report-lost">Report Lost</a>
+		<a href="/reportFoundItem.html" data-view="log-found">Log Found</a>
+		<a href="/staffManagementPage.html" data-view="claim">Staff Management</a>
+		<a href="/" data-view="login">Log Out</a>
 	</div>
 </nav>
