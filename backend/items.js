@@ -5,10 +5,48 @@ const router = express.Router();
 
 // GET /api/v1/items
 // get all items from database
+// optional filters: ?type=lost|found  and  ?q=search text
 router.get('/', (req, res) => {
+	const { type, q } = req.query;
+
+	// "AS name" etc. give camelCase JSON, (the same shape as mockData.json)
+	// The JOINs add readable category/location names next to the ids
+	let sql = `
+		SELECT i.Id AS id, i.Type AS type, i.Name AS name,
+		       i.CategoryId AS categoryId, c.Name AS categoryName,
+		       i.Color AS color, i.Brand AS brand, i.Description AS description,
+		       i.Date AS date, i.LocationId AS locationId, l.Name AS locationName,
+		       i.Status AS status, i.ReportedBy AS reportedBy
+		FROM Item i
+		LEFT JOIN Category c ON c.Id = i.CategoryId
+		LEFT JOIN Location l ON l.Id = i.LocationId`;
+
+	// build the WHERE clause from whichever filters were sent
+	const conditions = [];
+	const params = [];
+
+	if (type !== undefined) {
+		if (type !== 'lost' && type !== 'found') {
+			return res.status(400).json({ error: 'type must be lost or found' });
+		}
+		conditions.push('i.Type = ?');
+		params.push(type);
+	}
+
+	if (typeof q === 'string' && q.trim()) {
+		// LIKE is case-insensitive in SQLite; % matches anything around the text
+		conditions.push('(i.Name LIKE ? OR i.Description LIKE ?)');
+		params.push(`%${q.trim()}%`, `%${q.trim()}%`);
+	}
+
+	if (conditions.length > 0) {
+		sql += ' WHERE ' + conditions.join(' AND ');
+	}
+	sql += ' ORDER BY i.Date DESC';
+
 	// read items from sqlite
 	try {
-		const items = db.prepare('SELECT * FROM Item').all();
+		const items = db.prepare(sql).all(...params);
 		return res.status(200).json(items);
 	} catch (error) {
 		console.error('Failed to get items from SQLite:', error);
