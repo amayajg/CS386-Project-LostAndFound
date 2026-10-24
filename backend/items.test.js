@@ -17,7 +17,7 @@ app.use('/api/v1/items', require('./items'));
 test('GET items', async () => {
 	// arrange
 	const fake = mock.method(db, 'prepare', () => ({
-		all: () => [{ Id: 1, Name: 'Wallet' }],
+		all: () => [{ id: 1, name: 'Wallet' }],
 	}));
 	const server = app.listen(0);
 
@@ -29,7 +29,7 @@ test('GET items', async () => {
 
 		// assert
 		assert.equal(res.status, 200);
-		assert.equal(items[0].Name, 'Wallet');
+		assert.equal(items[0].name, 'Wallet');
 	} finally {
 		fake.mock.restore();
 		await new Promise((resolve) => server.close(resolve));

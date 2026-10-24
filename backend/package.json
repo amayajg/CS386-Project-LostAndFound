@@ -39,7 +39,8 @@
   "homepage": "https://github.com/bs2863/CS386-Project-LostAndFound#readme",
   "scripts": {
     "start": "node index.js",
-    "seed": "node seed.js"
+    "seed": "node seed.js",
+    "test": "node --test"
   },
   "dependencies": {
     "express": "^5.2.1"
